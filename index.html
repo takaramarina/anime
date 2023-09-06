@@ -6,35 +6,445 @@
     <title>Anime Review</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
     <style>
       body {
-        background-color: rgb(255, 209, 238);
+        background-color: rgb(38, 108, 183);
         color: white;
         text-align: center;
         margin: 0px;
+        font-family: "Lexend Deca", sans-serif;
+        overflow: hidden;
       }
 
       h1 {
         color: rgb(38, 108, 183);
         text-align: center;
         text-transform: uppercase;
+        font-weight: 900;
         font-family: "Passion One", cursive;
         font-size: 25vw;
         line-height: 17vw;
-        background-color: white;
-        padding-top: 50px;
-        padding-bottom: 50px;
+        background-color: rgb(255, 209, 238);
+        padding-top: 10vh;
+        padding-bottom: 10vh;
+        margin-bottom: 10vh;
       }
 
       img {
         width: 100vw;
       }
+
+      /* Hide the checkbox */
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      /* Styling for the toggle label */
+      .lbl-toggle {
+        display: block;
+        font-family: "Passion One", cursive;
+        font-size: 4vw;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 1rem;
+        color: rgb(255, 209, 238);
+        background: rgb(38, 108, 183);
+        cursor: pointer;
+        border-radius: 7px;
+        transition: all 0.25s ease-out;
+      }
+
+      /* Hover effect for the toggle label */
+      .lbl-toggle:hover {
+        color: #FFF;
+      }
+
+      /* Styling for the toggle icon */
+      .lbl-toggle::before {
+        content: ' ';
+        display: inline-block;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid currentColor;
+        vertical-align: middle;
+        margin-right: .7rem;
+        transform: translateY(-2px);
+        transition: transform .2s ease-out;
+      }
+
+      /* Rotate the toggle icon when checked */
+      .toggle:checked+.lbl-toggle::before {
+        transform: rotate(90deg) translateX(-3px);
+      }
+
+      /* Styling for the collapsible content */
+      .collapsible-content {
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height .25s ease-in-out;
+      }
+
+      /* Show the content when checked */
+      .toggle:checked+.lbl-toggle+.collapsible-content {
+        max-height: 350px;
+      }
+
+      /* Styling for the inner content of the collapsible */
+      .collapsible-content .content-inner {
+        background: rgb(38, 108, 183);
+        padding: .5rem 1rem;
+        font-size: 16px;
+        line-height: 30px;
+        margin-left: 15vw;
+        margin-right: 15vw;
+        margin-top: 4vh;
+      }
+
+      [type="checkbox"]:checked,
+      [type="checkbox"]:not(:checked) {
+        position: absolute;
+        left: -9999px;
+      }
+
+      .menu-icon:checked+label,
+      .menu-icon:not(:checked)+label {
+        position: fixed;
+        top: 63px;
+        right: 75px;
+        display: block;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      .menu-icon:checked+label:before,
+      .menu-icon:not(:checked)+label:before {
+        position: absolute;
+        content: '';
+        display: block;
+        width: 30px;
+        height: 20px;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        border-top: 2px solid #ececee;
+        border-bottom: 2px solid #ececee;
+        transition: border-width 100ms 1500ms ease,
+          top 100ms 1600ms cubic-bezier(0.23, 1, 0.32, 1),
+          height 100ms 1600ms cubic-bezier(0.23, 1, 0.32, 1),
+          background-color 200ms ease,
+          transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .menu-icon:checked+label:after,
+      .menu-icon:not(:checked)+label:after {
+        position: absolute;
+        content: '';
+        display: block;
+        width: 22px;
+        height: 2px;
+        z-index: 20;
+        top: 10px;
+        right: 4px;
+        background-color: #ececee;
+        margin-top: -1px;
+        transition: width 100ms 1750ms ease,
+          right 100ms 1750ms ease,
+          margin-top 100ms ease,
+          transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .menu-icon:checked+label:before {
+        top: 10px;
+        transform: rotate(45deg);
+        height: 2px;
+        background-color: #ececee;
+        border-width: 0;
+        transition: border-width 100ms 340ms ease,
+          top 100ms 300ms cubic-bezier(0.23, 1, 0.32, 1),
+          height 100ms 300ms cubic-bezier(0.23, 1, 0.32, 1),
+          background-color 200ms 500ms ease,
+          transform 200ms 1700ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .menu-icon:checked+label:after {
+        width: 30px;
+        margin-top: 0;
+        right: 0;
+        transform: rotate(-45deg);
+        transition: width 100ms ease,
+          right 100ms ease,
+          margin-top 100ms 500ms ease,
+          transform 200ms 1700ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+
+      .nav {
+        position: fixed;
+        top: 33px;
+        right: 50px;
+        display: block;
+        width: 80px;
+        height: 80px;
+        padding: 0;
+        margin: 0;
+        z-index: 9;
+        overflow: hidden;
+        box-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.3);
+        background-color: #353746;
+        animation: border-transform 7s linear infinite;
+        transition: top 350ms 1100ms cubic-bezier(0.23, 1, 0.32, 1),
+          right 350ms 1100ms cubic-bezier(0.23, 1, 0.32, 1),
+          transform 250ms 1100ms ease,
+          width 650ms 400ms cubic-bezier(0.23, 1, 0.32, 1),
+          height 650ms 400ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      @keyframes border-transform {
+
+        0%,
+        100% {
+          border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+        }
+
+        14% {
+          border-radius: 40% 60% 54% 46% / 49% 60% 40% 51%;
+        }
+
+        28% {
+          border-radius: 54% 46% 38% 62% / 49% 70% 30% 51%;
+        }
+
+        42% {
+          border-radius: 61% 39% 55% 45% / 61% 38% 62% 39%;
+        }
+
+        56% {
+          border-radius: 61% 39% 67% 33% / 70% 50% 50% 30%;
+        }
+
+        70% {
+          border-radius: 50% 50% 34% 66% / 56% 68% 32% 44%;
+        }
+
+        84% {
+          border-radius: 46% 54% 50% 50% / 35% 61% 39% 65%;
+        }
+      }
+
+      .menu-icon:checked~.nav {
+        animation-play-state: paused;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+        width: 200%;
+        height: 200%;
+        transition: top 350ms 700ms cubic-bezier(0.23, 1, 0.32, 1),
+          right 350ms 700ms cubic-bezier(0.23, 1, 0.32, 1),
+          transform 250ms 700ms ease,
+          width 750ms 1000ms cubic-bezier(0.23, 1, 0.32, 1),
+          height 750ms 1000ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .nav ul {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        z-index: 6;
+        text-align: center;
+        transform: translateY(-50%);
+        list-style: none;
+      }
+
+      .nav ul li {
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 10px 0;
+        text-align: center;
+        list-style: none;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(30px);
+        transition: all 250ms linear;
+      }
+
+      .nav ul li:nth-child(1) {
+        transition-delay: 200ms;
+      }
+
+      .nav ul li:nth-child(2) {
+        transition-delay: 150ms;
+      }
+
+      .nav ul li:nth-child(3) {
+        transition-delay: 100ms;
+      }
+
+      .nav ul li:nth-child(4) {
+        transition-delay: 50ms;
+      }
+
+      .nav ul li a {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 9vh;
+        text-transform: uppercase;
+        line-height: 1.2;
+        font-weight: 800;
+        display: inline-block;
+        position: relative;
+        color: #ececee;
+        transition: all 250ms linear;
+      }
+
+      .nav ul li a:hover {
+        text-decoration: none;
+        color: #ffeba7;
+      }
+
+      .nav ul li a:after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        content: '';
+        height: 2vh;
+        margin-top: -1vh;
+        width: 0;
+        left: 0;
+        background-color: #353746;
+        opacity: 0.8;
+        transition: width 250ms linear;
+      }
+
+      .nav ul li a:hover:after {
+        width: 100%;
+      }
+
+
+      .menu-icon:checked~.nav ul li {
+        pointer-events: auto;
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 350ms ease,
+          transform 250ms ease;
+      }
+
+      .menu-icon:checked~.nav ul li:nth-child(1) {
+        transition-delay: 1400ms;
+      }
+
+      .menu-icon:checked~.nav ul li:nth-child(2) {
+        transition-delay: 1480ms;
+      }
+
+      .menu-icon:checked~.nav ul li:nth-child(3) {
+        transition-delay: 1560ms;
+      }
+
+      .menu-icon:checked~.nav ul li:nth-child(4) {
+        transition-delay: 1640ms;
+      }
+      @media screen and (max-width: 991px) {
+  .menu-icon:checked + label,
+  .menu-icon:not(:checked) + label{
+    right: 55px;
+  }
+  .logo {
+    left: 30px;
+  }
+  .nav{
+    right: 30px;
+  }
+  .nav ul li a{
+    font-size: 8vh;
+  }
     </style>
   </head>
   <body>
+    <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon">
+    <label for="menu-icon"></label>
+    <nav class="nav">
+      hi
+    </nav>
     <h1>
       Anime review
     </h1>
+    <div class="wrap-collabsible">
+      <input id="collapsible" class="toggle" type="checkbox">
+      <label for="collapsible" class="lbl-toggle">in case you're curious about the methodology</label>
+      <div class="collapsible-content">
+        <div class="content-inner">
+          This is a ranking of anime that I have watched, annotated
+          with a small summary (mostly free of spoilers) as well
+          as my own thoughts. They are ordered by how much I
+          personally enjoyed them. To make it easier to gauge
+          the enjoyment of each show, they are given a letter
+          grade based on the following scale: <br> <br>
+
+        </div>
+      </div>
+    </div>
+    <script>
+      function createTrail(x, y) {
+        const glitter = ['☆', '★', '♡', '❤︎', '✴︎', '。']
+        const ran = Math.floor(Math.random() * glitter.length)
+        const glit = glitter[ran]
+        // create span element for emoji
+        const ele = document.createElement('span')
+        ele.textContent = glit
+        ele.className = 'emoji-trail'
+        // size && position emoji
+        ele.style.position = 'fixed'
+        ele.style.left = x + 'px'
+        ele.style.top = y + 'px'
+        ele.style.fontSize = '30px'
+        ele.style.color = 'white'
+        // set emoji data
+        ele.dataset.velocity = {
+          x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
+          y: 1
+        }
+        return ele
+      }
+
+      function updateGlit(glit) {
+        let x = parseInt(glit.style.left)
+        let y = parseInt(glit.style.top)
+        let f = parseInt(glit.style.fontSize)
+        x += parseInt(glit.dataset.velocity.x)
+        y += parseInt(glit.dataset.velocity.y)
+        f -= 0.25
+        glit.style.left = x + 'px'
+        glit.style.top = y + 'px'
+        glit.style.fontSize = f + 'px'
+        if (f < 0) glit.remove()
+        else setTimeout(updateGlit, 1000 / 30, glit)
+      }
+
+      let x = 1;
+      window.addEventListener('mousemove', (e) => {
+        // create a new emoji every time the mouse moves
+        if (x % 10 === 0) {
+          const glit = createTrail(e.clientX - 24, e.clientY - 24)
+          document.body.appendChild(glit)
+          updateGlit(glit)
+          x++;
+        } else {
+          x++;
+        }
+      })
+    </script>
   </body>
 </html>
