@@ -15,7 +15,6 @@
         text-align: center;
         margin: 0px;
         font-family: "Lexend Deca", sans-serif;
-        overflow: hidden;
       }
 
       h1 {
@@ -34,72 +33,6 @@
 
       img {
         width: 100vw;
-      }
-
-      /* Hide the checkbox */
-      input[type="checkbox"] {
-        display: none;
-      }
-
-      /* Styling for the toggle label */
-      .lbl-toggle {
-        display: block;
-        font-family: "Passion One", cursive;
-        font-size: 4vw;
-        text-transform: uppercase;
-        text-align: center;
-        padding: 1rem;
-        color: rgb(255, 209, 238);
-        background: rgb(38, 108, 183);
-        cursor: pointer;
-        border-radius: 7px;
-        transition: all 0.25s ease-out;
-      }
-
-      /* Hover effect for the toggle label */
-      .lbl-toggle:hover {
-        color: #FFF;
-      }
-
-      /* Styling for the toggle icon */
-      .lbl-toggle::before {
-        content: ' ';
-        display: inline-block;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-left: 5px solid currentColor;
-        vertical-align: middle;
-        margin-right: .7rem;
-        transform: translateY(-2px);
-        transition: transform .2s ease-out;
-      }
-
-      /* Rotate the toggle icon when checked */
-      .toggle:checked+.lbl-toggle::before {
-        transform: rotate(90deg) translateX(-3px);
-      }
-
-      /* Styling for the collapsible content */
-      .collapsible-content {
-        max-height: 0px;
-        overflow: hidden;
-        transition: max-height .25s ease-in-out;
-      }
-
-      /* Show the content when checked */
-      .toggle:checked+.lbl-toggle+.collapsible-content {
-        max-height: 350px;
-      }
-
-      /* Styling for the inner content of the collapsible */
-      .collapsible-content .content-inner {
-        background: rgb(38, 108, 183);
-        padding: .5rem 1rem;
-        font-size: 16px;
-        line-height: 30px;
-        margin-left: 15vw;
-        margin-right: 15vw;
-        margin-top: 4vh;
       }
 
       [type="checkbox"]:checked,
@@ -183,7 +116,6 @@
           transform 200ms 1700ms cubic-bezier(0.23, 1, 0.32, 1);
       }
 
-
       .nav {
         position: fixed;
         top: 33px;
@@ -194,7 +126,7 @@
         padding: 0;
         margin: 0;
         z-index: 9;
-        overflow: hidden;
+        overflow-y: auto;
         box-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.3);
         background-color: #353746;
         animation: border-transform 7s linear infinite;
@@ -242,8 +174,8 @@
         top: 50%;
         right: 50%;
         transform: translate(50%, -50%);
-        width: 200%;
-        height: 200%;
+        width: 200vw;
+        height: 200vh;
         transition: top 350ms 700ms cubic-bezier(0.23, 1, 0.32, 1),
           right 350ms 700ms cubic-bezier(0.23, 1, 0.32, 1),
           transform 250ms 700ms ease,
@@ -253,12 +185,14 @@
 
       .nav ul {
         position: absolute;
-        top: 50%;
+        margin-top: 110vh;
         left: 0;
         display: block;
-        width: 100%;
+        width: 70vw;
+        height: 80vh;
+        overflow: scroll;
         padding: 0;
-        margin: 0;
+        margin-left: 65vw;
         z-index: 6;
         text-align: center;
         transform: translateY(-50%);
@@ -296,41 +230,9 @@
         transition-delay: 50ms;
       }
 
-      .nav ul li a {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 9vh;
-        text-transform: uppercase;
-        line-height: 1.2;
-        font-weight: 800;
-        display: inline-block;
-        position: relative;
-        color: #ececee;
-        transition: all 250ms linear;
+      .nav ul li:nth-child(5) {
+        transition-delay: 50ms;
       }
-
-      .nav ul li a:hover {
-        text-decoration: none;
-        color: #ffeba7;
-      }
-
-      .nav ul li a:after {
-        display: block;
-        position: absolute;
-        top: 50%;
-        content: '';
-        height: 2vh;
-        margin-top: -1vh;
-        width: 0;
-        left: 0;
-        background-color: #353746;
-        opacity: 0.8;
-        transition: width 250ms linear;
-      }
-
-      .nav ul li a:hover:after {
-        width: 100%;
-      }
-
 
       .menu-icon:checked~.nav ul li {
         pointer-events: auto;
@@ -356,46 +258,57 @@
       .menu-icon:checked~.nav ul li:nth-child(4) {
         transition-delay: 1640ms;
       }
-      @media screen and (max-width: 991px) {
-  .menu-icon:checked + label,
-  .menu-icon:not(:checked) + label{
-    right: 55px;
-  }
-  .logo {
-    left: 30px;
-  }
-  .nav{
-    right: 30px;
-  }
-  .nav ul li a{
-    font-size: 8vh;
-  }
+
+      .menu-icon:checked~.nav ul li:nth-child(5) {
+        transition-delay: 1700ms;
+      }
     </style>
   </head>
   <body>
     <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon">
     <label for="menu-icon"></label>
     <nav class="nav">
-      hi
-    </nav>
-    <h1>
-      Anime review
-    </h1>
-    <div class="wrap-collabsible">
-      <input id="collapsible" class="toggle" type="checkbox">
-      <label for="collapsible" class="lbl-toggle">in case you're curious about the methodology</label>
-      <div class="collapsible-content">
-        <div class="content-inner">
-          This is a ranking of anime that I have watched, annotated
+      <ul class="pt-5">
+        <li>This is a ranking of anime that I have watched, annotated
           with a small summary (mostly free of spoilers) as well
           as my own thoughts. They are ordered by how much I
           personally enjoyed them. To make it easier to gauge
           the enjoyment of each show, they are given a letter
-          grade based on the following scale: <br> <br>
-
-        </div>
-      </div>
-    </div>
+          grade based on the following scale:</li>
+        <li>A: God Tier <br>
+          B: Good Anime <br>
+          C: Eh <br>
+          F: Horrible <br>
+          I: Incomplete (Did not finish watching)</li>
+        <li><br>The grade I is not to be confused with a negative
+          rating; it is neutral on its own and can be given by
+          itself or in combination with another letter grade
+          depending on the level of completion. Anime with only
+          the grade I cannot accurately be placed within the
+          letter grade scale, so they are at the bottom of the list.</li>
+        <li>Grades may further be divided with a + or - indicating
+          the relative rating of that anime within its letter
+          group. This will also be reflected in the position of
+          the anime in the list. Even if an anime has the exact
+          same letter rating as another, it can be assumed that
+          the one lower in the list was not enjoyed more than
+          the one above it.</li>
+        <li>Anime given a rating of A or higher will also be rated
+          on two further categories: romance and humor. These
+          ratings will be a score out of 5, represented by stars.
+          Humor in this case is not necessarily a measure of the
+          funniness of the show. Rather, it indicates the level
+          of lightheartedness (“fuzake”) compared to the amount
+          of seriousness. <br>
+          These rankings are totally my own opinion influenced
+          by my own bias. My favorite genres are romance, comedy,
+          and sports, and my least liked genres are isekai/fantasy
+          and suspense/horror. I am not open to criticism.</li>
+      </ul>
+    </nav>
+    <h1>
+      Anime review
+    </h1>
     <script>
       function createTrail(x, y) {
         const glitter = ['☆', '★', '♡', '❤︎', '✴︎', '。']
